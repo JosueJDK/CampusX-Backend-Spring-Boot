@@ -13,7 +13,8 @@ public class AuthService
                     AuthRegisterUseCase,
                     AuthCheckAvailableEmailUseCase,
                     AuthCheckAvailableUserNameUseCase,
-                    AuthRefreshTokenUseCase {
+                    AuthRefreshTokenUseCase,
+                    AuthLogoutUserIdUseCase {
 
     private final AuthLoginUseCase authLoginUseCase;
 
@@ -24,6 +25,8 @@ public class AuthService
     private final AuthCheckAvailableUserNameUseCase authCheckAvailableUserNameUseCase;
 
     private final AuthRefreshTokenUseCase authRefreshTokenUseCase;
+
+    private final AuthLogoutUserIdUseCase authLogoutUserIdUseCase;
 
     @Override
     public Auth authLogin(User user) {
@@ -48,5 +51,10 @@ public class AuthService
     @Override
     public Auth refreshToken(String refreshToken) {
         return authRefreshTokenUseCase.refreshToken(refreshToken);
+    }
+
+    @Override
+    public void authLogoutUserId(Long user_id){
+        authLogoutUserIdUseCase.authLogoutUserId(user_id);
     }
 }

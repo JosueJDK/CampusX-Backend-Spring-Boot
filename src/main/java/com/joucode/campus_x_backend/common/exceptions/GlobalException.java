@@ -1,6 +1,6 @@
 package com.joucode.campus_x_backend.common.exceptions;
 
-public class GlobalException extends Exception {
+public class GlobalException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public GlobalException(String message) {

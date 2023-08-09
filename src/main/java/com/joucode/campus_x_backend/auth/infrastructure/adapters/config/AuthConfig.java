@@ -58,9 +58,13 @@ public class AuthConfig {
 
                 new AuthRefreshTokenUseCaseImpl(
                         userRepositoryPort,
-                        roleRepositoryPort,
                         authMapper,
                         jwtService
+                ),
+
+                new AuthLogoutUserIdUseCaseImpl(
+                        userRepositoryPort,
+                        authMapper
                 )
 
         );

@@ -46,6 +46,13 @@ public class AuthRestAdapter {
         return new ResponseEntity<>(responseMapper.toResponse(authResponse, CREATED), CREATED);
     }
 
+    @GetMapping("/logout/{user_id}")
+    private ResponseEntity<?> authLogout(@PathVariable(value = "user_id") Long user_id) {
+        authService.authLogoutUserId(user_id);
+        log.info("---- Loguot user with id: {}", user_id);
+        return new ResponseEntity<>(OK);
+    }
+
     @PostMapping("/refresh-token")
     public ResponseEntity<Response<Auth>> authRefreshToken(@RequestBody AuthRefreshTokenRequest request){
         Auth authResponse = authService.refreshToken(request.getRefreshToken());
