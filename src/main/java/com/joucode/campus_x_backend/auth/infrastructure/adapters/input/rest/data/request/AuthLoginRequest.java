@@ -11,11 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 public class AuthLoginRequest {
 
-    private String userName;
-
     @NotBlank
-    @Email
-    private String email;
+    private String login;
 
     @NotBlank
     private String password;

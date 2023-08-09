@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -23,24 +24,24 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
-  private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
-  @Override
-  public void commence(HttpServletRequest servletRequest, HttpServletResponse servletResponse, AuthenticationException authException)
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
       throws IOException, ServletException {
 
-    logger.error("Unauthorized error: {}", authException.getMessage());
+      LOGGER.error("---- Unauthorized error: {}", authException.getMessage());
 
-    servletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    servletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-    final ObjectMapper mapper = new ObjectMapper();
+      response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-    Response responseBody = Response.builder()
-            .code(UNAUTHORIZED.value())
-            .status(UNAUTHORIZED.name())
-            .data(Map.of("error", Map.of("message", authException.getMessage()))).build();
+      Response responseBody = new Response();
+      responseBody.setCode(UNAUTHORIZED.value());
+      responseBody.setStatus(UNAUTHORIZED.name());
+      responseBody.setData(Map.of("error", Map.of("message", authException.getMessage())));
 
-    mapper.writeValue(servletResponse.getOutputStream(), responseBody);
-  }
+      final ObjectMapper mapper = new ObjectMapper();
+      mapper.writeValue(response.getOutputStream(), responseBody);
+    }
 
 }

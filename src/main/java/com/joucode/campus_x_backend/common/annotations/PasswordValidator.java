@@ -1,4 +1,4 @@
-package com.joucode.campus_x_backend.common.constraints;
+package com.joucode.campus_x_backend.common.annotations;
 
 
 import jakarta.validation.ConstraintValidator;

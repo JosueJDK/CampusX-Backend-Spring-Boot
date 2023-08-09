@@ -3,24 +3,21 @@ package com.joucode.campus_x_backend.auth.application.use_cases;
 import com.joucode.campus_x_backend.auth.application.services.JwtService;
 import com.joucode.campus_x_backend.auth.domain.models.Auth;
 import com.joucode.campus_x_backend.auth.domain.ports.input.AuthLoginUseCase;
-import com.joucode.campus_x_backend.auth.domain.ports.output.AuthRepositoryPort;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.output.persistence.mappers.AuthMapper;
-import com.joucode.campus_x_backend.common.exceptions.CredentialsInvalidException;
+import com.joucode.campus_x_backend.common.exceptions.NotAuthorizationInvalidException;
 import com.joucode.campus_x_backend.common.exceptions.NotFoundException;
 import com.joucode.campus_x_backend.user.domain.models.User;
+import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 public class AuthLoginUseCaseImpl implements AuthLoginUseCase {
 
-    private final AuthRepositoryPort authRepositoryPort;
+    private final UserRepositoryPort userRepositoryPort;
 
     private final AuthMapper authMapper;
 
@@ -30,25 +27,35 @@ public class AuthLoginUseCaseImpl implements AuthLoginUseCase {
 
     @Override
     public Auth authLogin(User user) {
-        Optional<UserEntity> userEntityOptional = authRepositoryPort.findByEmail(user.getEmail());
+        UserEntity userEntity = userRepositoryPort.findByEmailOrUsername(user.getEmail(), user.getUsername())
+                .orElseThrow(() -> new NotFoundException("El usuario no existe."));
 
-        if (userEntityOptional.isEmpty()) {
-            throw new NotFoundException("El usuario con el email " + user.getEmail() + " no fue encontrado.");
+        if (!encryptService.matches(user.getPassword(), userEntity.getPassword())) {
+            throw new NotAuthorizationInvalidException("Credenciales incorrectas");
         }
 
-        User userSearch = authMapper.toUser(userEntityOptional.get());
-
-        if (!encryptService.matches(user.getPassword(), userSearch.getPassword())) {
-            throw new CredentialsInvalidException("Credenciales incorrectas");
+        if (userEntity.isBanned()) {
+            throw new NotAuthorizationInvalidException("User account with login has been banned.");
         }
 
-        List<String> rolesNames = new ArrayList<>();
-        userSearch.getRoles().forEach(r -> rolesNames.add(r.getRoleName()));
+        if (!userEntity.isVerifiedAccount()) {
+            throw new NotAuthorizationInvalidException("User account with login: " + userEntity.getUsername() + " has not been activated");
+        }
 
-        Map<String, String> getTokens = jwtService.generateTokens(userSearch.getEmail(), rolesNames, "access_token");
 
-        return authMapper.toAuth(userSearch, getTokens.get("accessToken"), getTokens.get("refreshToken"));
+        User mappedUser = authMapper.toUser(userEntity);
+
+        List<String> rolesNames = authMapper.toRoleNames(new ArrayList<>(userEntity.getRoles()));
+
+        Map<String, String> tokens = jwtService.generateTokens(mappedUser.getUserId().toString(), user.getUsername(), rolesNames);
+
+
+        return authMapper.toAuth(mappedUser, tokens.get("accessToken"), tokens.get("refreshToken"));
     }
+
+
+
+
 
 
 

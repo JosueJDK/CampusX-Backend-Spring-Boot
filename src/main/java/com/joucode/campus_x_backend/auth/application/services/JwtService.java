@@ -1,6 +1,7 @@
 package com.joucode.campus_x_backend.auth.application.services;
 
 import com.joucode.campus_x_backend.common.exceptions.CustomAuthenticationException;
+import com.joucode.campus_x_backend.user.domain.models.User;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long jwtExpiration;
 
-    public String extractUsername(String token) {
+    public String extractUsernameOrEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -46,7 +47,7 @@ public class JwtService {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String email = extractUsername(token);
+        final String email = extractUsernameOrEmail(token);
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
@@ -54,9 +55,10 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    private String generateToken(String email, List<String> roles, String tokenType) {
+    private String generateToken(String id, String login, List<String> roles, String tokenType) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(login)
+                .claim("id", id)
                 .claim(TOKEN_TYPE_CLAIM, tokenType)
                 .claim(ROLE_CLAIM, roles.stream().collect(Collectors.joining(",")))
                 .setIssuedAt(new Date())
@@ -65,10 +67,10 @@ public class JwtService {
                 .compact();
     }
 
-    public Map<String, String> generateTokens(String email, List<String> roles, String tokenType) {
+    public Map<String, String> generateTokens(String id, String login, List<String> roles) {
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("accessToken", generateToken(email, roles, "access_token"));
-        tokens.put("refreshToken", generateToken(email, roles, "refresh_token"));
+        tokens.put("accessToken", generateToken(id, login, roles, "access_token"));
+        tokens.put("refreshToken", generateToken(id, login, roles, "refresh_token"));
         return tokens;
     }
 

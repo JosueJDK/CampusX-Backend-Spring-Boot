@@ -1,22 +1,24 @@
 package com.joucode.campus_x_backend.user.domain.ports.output;
 
-import com.joucode.campus_x_backend.common.exceptions.NotFoundException;
 import com.joucode.campus_x_backend.user.domain.models.User;
+import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.UserEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserRepositoryPort {
 
-    User save(User user);
+    UserEntity save(User user);
 
-    Optional<User> findById(Long id);
+    Optional<UserEntity> findById(Long id);
 
-    List<User> findAll();
+    List<UserEntity> findAll();
 
-    Optional<User> findByEmail(String email) throws NotFoundException;
+    Optional<UserEntity> findByEmail(String email);
 
-    Optional<User> findByUserName(String email) throws NotFoundException;
+    Optional<UserEntity> findByUserName(String email);
+
+    Optional<UserEntity> findByEmailOrUsername (String email, String username);
 
     Boolean existsByEmail(String email);
 

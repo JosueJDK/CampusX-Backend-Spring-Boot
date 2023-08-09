@@ -1,29 +1,27 @@
 package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity;
 
+import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "role_table")
 public class RoleEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @Column(name = "role_id")
+    private Integer roleId;
 
     @Enumerated(EnumType.STRING)
-    RoleName roleName ;
+    @Column(name = "name",length = 20, nullable = false)
+    private RoleName name;
 
-    public RoleEntity(RoleName roleName) {this.roleName = roleName;}
-
-    public String getRoleName() {
-        return roleName.toString();
-    }
 }

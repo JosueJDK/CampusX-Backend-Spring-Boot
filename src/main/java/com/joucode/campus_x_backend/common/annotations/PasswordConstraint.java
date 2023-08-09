@@ -1,4 +1,4 @@
-package com.joucode.campus_x_backend.common.constraints;
+package com.joucode.campus_x_backend.common.annotations;
 
 
 import jakarta.validation.Constraint;
@@ -11,7 +11,9 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordConstraint {
-    String message() default "El campo debe tener al menos una letra mayúscula, una letra minúscula, un carácter especial y un número.";
+
+    String message() default "Invalid password format.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+
 }

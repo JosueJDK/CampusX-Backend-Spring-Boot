@@ -31,9 +31,9 @@ Descripción concisa de tu API y su funcionalidad.
 ## Endpoints
    **Autenticación y Registro**
     
-        POST /api/v1/auth/check-available-email ### Verificar disponibilidad de correo electrónico.
-        POST /api/v1/auth/check-available-user-name: ### Verificar disponibilidad de nombre de usuario.
-        POST /api/v1/auth/register: ### Registrarse en la aplicación.
+        GET /api/v1/auth/check-available-email/{email} ### Verificar disponibilidad de correo electrónico.
+        GET /api/v1/auth/check-available-user-name/{username} ### Verificar disponibilidad de nombre de usuario.
+        POST /api/v1/auth/register: ### Registrarse en la aplicación y recibir un token JWT.
         POST /api/v1/auth/login: ### Iniciar sesión y recibir un token JWT.
 
 © 2023 | JouCode

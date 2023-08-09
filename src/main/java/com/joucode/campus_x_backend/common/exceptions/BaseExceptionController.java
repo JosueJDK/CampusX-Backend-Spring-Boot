@@ -1,9 +1,7 @@
 package com.joucode.campus_x_backend.common.exceptions;
 
 import com.joucode.campus_x_backend.common.response.Response;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,29 +38,14 @@ public class BaseExceptionController {
         return new ResponseEntity<>(response, UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Response> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-        String errorMessage = ex.getMostSpecificCause().getMessage();
-
-        int startIndex = errorMessage.indexOf("Key (") + "Key (".length();
-        int endIndex = errorMessage.indexOf(")", startIndex);
-
-        String field = errorMessage.substring(startIndex, endIndex).trim();
-        String message = errorMessage.substring(errorMessage.indexOf("=") + "=".length()).trim();
-
-        Response response = new Response(CONFLICT.value(), CONFLICT.name(), Map.of("error", Map.of(field, message)));
-
-        return new ResponseEntity<>(response, CONFLICT);
-    }
-
     @ExceptionHandler(NotFoundException.class)
     private ResponseEntity<Response> handleNotFoundException(NotFoundException ex) {
         Response response = new Response(NOT_FOUND.value(), NOT_FOUND.name(), Map.of("error", ex.getMessage()));
         return new ResponseEntity<>(response, NOT_FOUND);
     }
 
-    @ExceptionHandler(CredentialsInvalidException.class)
-    private ResponseEntity<Response> handleCredentialsInvalidException(CredentialsInvalidException ex){
+    @ExceptionHandler(NotAuthorizationInvalidException.class)
+    private ResponseEntity<Response> handleCredentialsInvalidException(NotAuthorizationInvalidException ex){
         Response response = new Response(UNAUTHORIZED.value(), UNAUTHORIZED.name(), Map.of("error", ex.getMessage()));
         return new ResponseEntity<>(response, UNAUTHORIZED);
     }

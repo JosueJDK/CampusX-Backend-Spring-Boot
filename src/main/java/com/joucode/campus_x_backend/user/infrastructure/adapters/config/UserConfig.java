@@ -8,7 +8,6 @@ import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persiste
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.mappers.UserMapper;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.RoleRepository;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +20,7 @@ public class UserConfig {
     }
 
     @Bean
-    public UserPersistenceAdapter productPersistenceAdapter(UserRepository userRepository, UserMapper userMapper) {
+    public UserPersistenceAdapter userPersistenceAdapter(UserRepository userRepository, UserMapper userMapper) {
         return new UserPersistenceAdapter(userRepository, userMapper);
     }
 

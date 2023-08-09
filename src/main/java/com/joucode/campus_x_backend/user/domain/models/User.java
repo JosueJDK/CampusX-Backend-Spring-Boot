@@ -1,24 +1,41 @@
 package com.joucode.campus_x_backend.user.domain.models;
 
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.RoleEntity;
+import com.joucode.campus_x_backend.profile.domain.models.UserProfile;
+import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.ActivityStatusName;
 import lombok.*;
-
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Builder
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
-    private Long id;
+    private Long userId;
 
-    private String userName;
-
-    private String email;
+    private String username;
 
     private String password;
 
-    private List <RoleEntity> roles ;
+    private String email;
+
+    private String phoneNumber;
+
+    private Integer incorrectLoginCounter;
+
+    private LocalDateTime createdAt;
+
+    private boolean verifiedAccount;
+
+    private ActivityStatusName activityStatus;
+
+    private boolean isBlocked;
+
+    private boolean isBanned;
+
+    private UserProfile userProfile;
+
+    private Set<Role> roles;
+
 }

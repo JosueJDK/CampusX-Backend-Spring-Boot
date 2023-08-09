@@ -1,6 +1,7 @@
 package com.joucode.campus_x_backend.auth.infrastructure.adapters.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joucode.campus_x_backend.auth.application.services.UserDetailsServiceImpl;
 import com.joucode.campus_x_backend.auth.application.services.JwtService;
 import com.joucode.campus_x_backend.common.exceptions.CustomAuthenticationException;
 import com.joucode.campus_x_backend.common.response.Response;
@@ -10,26 +11,29 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
-
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final CustomUserDetailsService customUserDetailsService;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -41,18 +45,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null) {
             try {
+
                 if(jwtService.validateToken(token)){
-                    String email = jwtService.extractUsername(token);
-                    UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+                    String login = jwtService.extractUsernameOrEmail(token);
+
+                    UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(login);
                     if (userDetails != null) {
+
                         UsernamePasswordAuthenticationToken authentication =
-                                new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
-                        log.info("authenticated user with email: {}", email);
+                                new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+
+                        LOGGER.info("Authenticate user with email: {}", login);
+
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
                 }
             } catch (CustomAuthenticationException e) {
-                log.info("Authentication error: {}", e.getMessage());
+                LOGGER.info("Authentication error: {}", e.getMessage());
                 handleAuthenticationError(response, e.getMessage());
                 return;
             }
@@ -66,11 +77,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         servletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         final ObjectMapper mapper = new ObjectMapper();
 
-        Response responseBody = Response.builder()
-                .code(UNAUTHORIZED.value())
-                .status(UNAUTHORIZED.name())
-                .data(Map.of("error", Map.of("message", errorMessage)))
-                .build();
+        Response responseBody = new Response();
+        responseBody.setCode(UNAUTHORIZED.value());
+        responseBody.setStatus(UNAUTHORIZED.name());
+        responseBody.setData(Map.of("error", Map.of("message", errorMessage)));
 
         mapper.writeValue(servletResponse.getOutputStream(), responseBody);
     }
