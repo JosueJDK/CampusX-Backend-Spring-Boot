@@ -3,6 +3,7 @@ package com.joucode.campus_x_backend.auth.infrastructure.adapters.input;
 import com.joucode.campus_x_backend.auth.application.services.AuthService;
 import com.joucode.campus_x_backend.auth.domain.models.Auth;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthLoginRequest;
+import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthRefreshTokenRequest;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthRegisterRequest;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.output.persistence.mappers.AuthMapper;
 import com.joucode.campus_x_backend.common.mappers.ResponseMapper;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.HttpStatus.*;
@@ -41,6 +43,13 @@ public class AuthRestAdapter {
     public ResponseEntity<Response<Auth>> authRegister(@RequestBody @Valid AuthRegisterRequest authRegisterRequest){
         Auth authResponse = authService.authRegister(authMapper.toUser(authRegisterRequest));
         log.info("---- Create user: {}", authResponse.getUser().getUsername());
+        return new ResponseEntity<>(responseMapper.toResponse(authResponse, CREATED), CREATED);
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<Response<Auth>> authRefreshToken(@RequestBody AuthRefreshTokenRequest request){
+        Auth authResponse = authService.refreshToken(request.getRefreshToken());
+        log.info("---- Refresh Token user: {}", authResponse.getUser().getUsername());
         return new ResponseEntity<>(responseMapper.toResponse(authResponse, CREATED), CREATED);
     }
 

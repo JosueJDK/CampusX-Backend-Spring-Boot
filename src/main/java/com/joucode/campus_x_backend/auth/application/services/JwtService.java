@@ -32,6 +32,10 @@ public class JwtService {
     public String extractUsernameOrEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+    public String extractTypeToken(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("token_type").toString();
+    }
 
     public Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
@@ -78,9 +82,9 @@ public class JwtService {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
-        } catch (SignatureException | MalformedJwtException |
+        } catch (SignatureException |
                  ExpiredJwtException | UnsupportedJwtException |
-                 IllegalArgumentException e) {
+                 IllegalArgumentException | MalformedJwtException e) {
             log.info("Invalid JWT: {}", e.getMessage());
             log.trace("Invalid JWT trace: {}", e);
             throw new CustomAuthenticationException(e.getMessage());

@@ -58,11 +58,9 @@ public class BaseExceptionController {
 
     @ExceptionHandler(CustomAuthenticationException.class)
     public ResponseEntity<Object> handleCustomAuthenticationException(CustomAuthenticationException ex) {
-        Map<String, Object> body = Map.of(
-                "code", UNAUTHORIZED.value(),
-                "message", UNAUTHORIZED.getReasonPhrase(),
-                "error", ex.getMessage()
-        );
-        return new ResponseEntity<>(body, UNAUTHORIZED);
+
+        Response response = new Response(UNAUTHORIZED.value(), UNAUTHORIZED.name(), Map.of("error", ex.getMessage()));
+
+        return new ResponseEntity<>(response, UNAUTHORIZED);
     }
 }

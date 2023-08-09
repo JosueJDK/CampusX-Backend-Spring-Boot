@@ -54,6 +54,13 @@ public class AuthConfig {
 
                 new AuthCheckAvailableUserNameUseCaseImpl(
                         userRepositoryPort
+                ),
+
+                new AuthRefreshTokenUseCaseImpl(
+                        userRepositoryPort,
+                        roleRepositoryPort,
+                        authMapper,
+                        jwtService
                 )
 
         );
