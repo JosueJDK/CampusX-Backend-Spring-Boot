@@ -1,16 +1,11 @@
 package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity;
 
 import com.joucode.campus_x_backend.profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.ActivityStatusName;
+import com.joucode.campus_x_backend.user.domain.models.enums.ActivityStatusName;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor

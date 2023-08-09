@@ -1,6 +1,6 @@
 package com.joucode.campus_x_backend.profile.domain.models;
 
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.GenderName;
+import com.joucode.campus_x_backend.user.domain.models.enums.GenderName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

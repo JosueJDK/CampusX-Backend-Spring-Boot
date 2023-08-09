@@ -1,11 +1,10 @@
 package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity;
 
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.RoleName;
+import com.joucode.campus_x_backend.user.domain.models.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Data

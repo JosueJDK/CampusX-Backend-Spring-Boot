@@ -1,17 +1,15 @@
 package com.joucode.campus_x_backend.auth.application.services;
 
 import com.joucode.campus_x_backend.user.domain.models.User;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.mappers.UserMapper;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.UserRepository;
+import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +18,9 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserRepositoryPort userRepositoryPort;
+
+    private final ModelMapper mapper;
 
     @Override
     @Transactional
@@ -29,17 +29,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher emailMatcher = pattern.matcher(login);
-        UserEntity userEntity;
+        User user;
 
         if (emailMatcher.matches()) {
-            userEntity = userRepository.findByEmail(login)
-                    .orElseThrow(() -> new UsernameNotFoundException("Not Found user with this email: " + login));
+            user = mapper.map(userRepositoryPort.findByEmail(login).orElseThrow(
+                    () -> new UsernameNotFoundException("Not Found user with this email: " + login)
+            ), User.class);
         }else {
-            userEntity = userRepository.findByUsername(login)
-                    .orElseThrow(() -> new UsernameNotFoundException("Not Found user with this username: " + login));
+            user = mapper.map(userRepositoryPort.findByUsername(login).orElseThrow(
+                    () -> new UsernameNotFoundException("Not Found user with this username: " + login)
+            ), User.class);
         }
 
-        return  UserDetailsImpl.build(userEntity);
+        return  UserDetailsImpl.build(user);
 
     }
 

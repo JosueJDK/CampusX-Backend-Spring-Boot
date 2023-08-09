@@ -7,6 +7,7 @@ import com.joucode.campus_x_backend.auth.infrastructure.adapters.output.persiste
 import com.joucode.campus_x_backend.user.domain.ports.output.RoleRepositoryPort;
 import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +27,6 @@ public class AuthConfig {
 
             UserRepositoryPort userRepositoryPort,
             RoleRepositoryPort roleRepositoryPort,
-            AuthMapper authMapper,
             JwtService jwtService,
             PasswordEncoder encryptService
 
@@ -35,7 +35,6 @@ public class AuthConfig {
 
                 new AuthLoginUseCaseImpl(
                         userRepositoryPort,
-                        authMapper,
                         encryptService,
                         jwtService
                 ),
@@ -43,7 +42,6 @@ public class AuthConfig {
                 new AuthRegisterUseCaseImpl(
                         userRepositoryPort,
                         roleRepositoryPort,
-                        authMapper,
                         encryptService,
                         jwtService
                 ),
@@ -58,13 +56,11 @@ public class AuthConfig {
 
                 new AuthRefreshTokenUseCaseImpl(
                         userRepositoryPort,
-                        authMapper,
                         jwtService
                 ),
 
                 new AuthLogoutUserIdUseCaseImpl(
-                        userRepositoryPort,
-                        authMapper
+                        userRepositoryPort
                 )
 
         );

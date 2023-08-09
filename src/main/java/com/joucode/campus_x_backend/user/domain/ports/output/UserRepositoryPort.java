@@ -8,17 +8,17 @@ import java.util.Optional;
 
 public interface UserRepositoryPort {
 
-    UserEntity save(User user);
+    User save(User user);
 
-    Optional<UserEntity> findById(Long id);
+    Optional<User> findById(Long id);
 
-    List<UserEntity> findAll();
+    List<User> findAll();
 
-    Optional<UserEntity> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
-    Optional<UserEntity> findByUserName(String email);
+    Optional<User> findByUsername(String email);
 
-    Optional<UserEntity> findByEmailOrUsername (String email, String username);
+    Optional<User> findByEmailOrUsername (String email, String username);
 
     Boolean existsByEmail(String email);
 

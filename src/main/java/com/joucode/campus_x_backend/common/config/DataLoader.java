@@ -1,7 +1,7 @@
 package com.joucode.campus_x_backend.common.config;
 
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.RoleEntity;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.RoleName;
+import com.joucode.campus_x_backend.user.domain.models.enums.RoleName;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

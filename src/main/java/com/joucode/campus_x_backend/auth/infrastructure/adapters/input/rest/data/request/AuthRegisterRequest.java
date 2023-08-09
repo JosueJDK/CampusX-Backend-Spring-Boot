@@ -2,7 +2,7 @@ package com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.dat
 
 import com.joucode.campus_x_backend.common.annotations.UniqueEmail;
 import com.joucode.campus_x_backend.common.annotations.UniqueUserName;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.enums.GenderName;
+import com.joucode.campus_x_backend.user.domain.models.enums.GenderName;
 import jakarta.validation.constraints.*;
 import lombok.*;
 

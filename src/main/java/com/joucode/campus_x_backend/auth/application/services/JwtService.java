@@ -1,7 +1,6 @@
 package com.joucode.campus_x_backend.auth.application.services;
 
 import com.joucode.campus_x_backend.common.exceptions.CustomAuthenticationException;
-import com.joucode.campus_x_backend.user.domain.models.User;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -9,13 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import static com.joucode.campus_x_backend.common.constants.ConstantsJwtService.ROLE_CLAIM;
 import static com.joucode.campus_x_backend.common.constants.ConstantsJwtService.TOKEN_TYPE_CLAIM;
 

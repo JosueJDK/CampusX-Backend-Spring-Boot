@@ -25,9 +25,10 @@ public class UserConfig {
     }
 
     @Bean
-    RolePersistenceAdapter rolePersistenceAdapter(RoleRepository roleRepository){
+    RolePersistenceAdapter rolePersistenceAdapter(RoleRepository roleRepository, UserMapper userMapper){
         return new RolePersistenceAdapter(
-                roleRepository
+                roleRepository,
+                userMapper
         );
     }
 
