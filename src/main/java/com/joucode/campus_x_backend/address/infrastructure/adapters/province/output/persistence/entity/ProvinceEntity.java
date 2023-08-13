@@ -23,6 +23,6 @@ public class ProvinceEntity {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id", nullable = false)
-    private CityEntity cityEntity;
+    private CityEntity city;
 
 }

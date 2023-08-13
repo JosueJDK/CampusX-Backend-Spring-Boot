@@ -24,6 +24,6 @@ public class DistrictEntity {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "province_id", nullable = false)
-    private ProvinceEntity provinceEntity;
+    private ProvinceEntity province;
 
 }
