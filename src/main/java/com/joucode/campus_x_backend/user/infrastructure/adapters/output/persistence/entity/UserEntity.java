@@ -1,7 +1,7 @@
 package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity;
 
 import com.joucode.campus_x_backend.profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
-import com.joucode.campus_x_backend.user.domain.models.enums.ActivityStatusName;
+import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -57,7 +57,7 @@ public class UserEntity {
     @JoinColumn(name = "user_profile_id", nullable = false)
     private UserProfileEntity userProfileEntity;
 
-    @ManyToMany(fetch = FetchType.LAZY) // Cambia FetchType.LAZY a FetchType.EAGER
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role_table",
             joinColumns = @JoinColumn(name = "user_id"),

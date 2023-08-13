@@ -6,8 +6,6 @@ import com.joucode.campus_x_backend.auth.application.use_cases.*;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.output.persistence.mappers.AuthMapper;
 import com.joucode.campus_x_backend.user.domain.ports.output.RoleRepositoryPort;
 import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
-import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,13 +44,18 @@ public class AuthConfig {
                         jwtService
                 ),
 
-                new AuthCheckAvailableEmailUseCaseImpl(
+                new AuthCheckEmailUseCaseImpl(
                         userRepositoryPort
                 ),
 
-                new AuthCheckAvailableUserNameUseCaseImpl(
+                new AuthCheckUserNameUseCaseImpl(
                         userRepositoryPort
                 ),
+
+                new AuthCheckTokenUseCaseImpl(
+                        jwtService
+                )
+                ,
 
                 new AuthRefreshTokenUseCaseImpl(
                         userRepositoryPort,

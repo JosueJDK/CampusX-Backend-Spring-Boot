@@ -7,7 +7,7 @@ import com.joucode.campus_x_backend.common.exceptions.NotAuthorizationInvalidExc
 import com.joucode.campus_x_backend.common.exceptions.NotFoundException;
 import com.joucode.campus_x_backend.user.domain.models.User;
 import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
-import com.joucode.campus_x_backend.user.domain.models.enums.ActivityStatusName;
+import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,6 +24,7 @@ public class AuthLoginUseCaseImpl implements AuthLoginUseCase {
 
     @Override
     public Auth authLogin(User user) {
+
         User userGet = userRepositoryPort.findByEmailOrUsername(user.getEmail(), user.getUsername())
                 .orElseThrow(() -> new NotFoundException("El usuario no existe."));
 

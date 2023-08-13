@@ -1,6 +1,9 @@
 package com.joucode.campus_x_backend.profile.infrastructure.adapters.output.persistence.entity;
 
-import com.joucode.campus_x_backend.user.domain.models.enums.GenderName;
+import com.joucode.campus_x_backend.address.infrastructure.adapters.address.output.persistence.entity.AddressEntity;
+import com.joucode.campus_x_backend.profile.domain.enums.ZodicalSign;
+import com.joucode.campus_x_backend.university.infrastructure.adapters.output.persistence.entity.InfoUniversityEntity;
+import com.joucode.campus_x_backend.user.domain.enums.GenderName;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,5 +44,16 @@ public class UserProfileEntity {
 
     @Column(name = "age", nullable = false)
     private Integer age;
+
+    @Column(name = "zodiacal_sign", nullable = false)
+    private ZodicalSign zodiacSign;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private AddressEntity address;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "info_university_id")
+    private InfoUniversityEntity university;
 
 }

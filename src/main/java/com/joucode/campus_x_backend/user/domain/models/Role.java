@@ -1,6 +1,6 @@
 package com.joucode.campus_x_backend.user.domain.models;
 
-import com.joucode.campus_x_backend.user.domain.models.enums.RoleName;
+import com.joucode.campus_x_backend.user.domain.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Role {
 
-    private Integer roleId;
+    private Long roleId;
 
     private RoleName name;
 

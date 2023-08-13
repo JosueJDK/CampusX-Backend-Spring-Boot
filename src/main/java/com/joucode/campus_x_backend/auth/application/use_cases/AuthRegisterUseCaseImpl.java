@@ -8,7 +8,7 @@ import com.joucode.campus_x_backend.user.domain.models.Role;
 import com.joucode.campus_x_backend.user.domain.models.User;
 import com.joucode.campus_x_backend.user.domain.ports.output.RoleRepositoryPort;
 import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
-import com.joucode.campus_x_backend.user.domain.models.enums.RoleName;
+import com.joucode.campus_x_backend.user.domain.enums.RoleName;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.*;
@@ -30,6 +30,7 @@ public class AuthRegisterUseCaseImpl implements AuthRegisterUseCase {
                 .orElseThrow(() -> new NotFoundException("Not found role: ROLE_USER"));
 
         user.setRoles(Collections.singleton(userRole));
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User userCreated = userRepositoryPort.save(user);

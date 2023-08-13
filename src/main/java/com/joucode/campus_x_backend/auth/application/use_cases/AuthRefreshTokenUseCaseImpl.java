@@ -7,7 +7,7 @@ import com.joucode.campus_x_backend.common.exceptions.CustomAuthenticationExcept
 import com.joucode.campus_x_backend.common.exceptions.GlobalException;
 import com.joucode.campus_x_backend.user.domain.models.User;
 import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
-import com.joucode.campus_x_backend.user.domain.models.enums.ActivityStatusName;
+import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;

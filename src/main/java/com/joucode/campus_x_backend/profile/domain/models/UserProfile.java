@@ -1,11 +1,13 @@
 package com.joucode.campus_x_backend.profile.domain.models;
 
-import com.joucode.campus_x_backend.user.domain.models.enums.GenderName;
+import com.joucode.campus_x_backend.address.infrastructure.adapters.address.output.persistence.entity.AddressEntity;
+import com.joucode.campus_x_backend.profile.domain.enums.ZodicalSign;
+import com.joucode.campus_x_backend.university.infrastructure.adapters.output.persistence.entity.InfoUniversityEntity;
+import com.joucode.campus_x_backend.user.domain.enums.GenderName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 @Builder
@@ -29,5 +31,11 @@ public class UserProfile {
     private LocalDate dateOfBirth;
 
     private Integer age;
+
+    private ZodicalSign zodiacSign;
+
+    private AddressEntity address;
+
+    private InfoUniversityEntity university;
 
 }

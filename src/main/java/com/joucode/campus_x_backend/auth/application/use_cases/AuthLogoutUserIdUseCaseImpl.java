@@ -4,7 +4,7 @@ import com.joucode.campus_x_backend.auth.domain.ports.input.AuthLogoutUserIdUseC
 import com.joucode.campus_x_backend.common.exceptions.NotFoundException;
 import com.joucode.campus_x_backend.user.domain.models.User;
 import com.joucode.campus_x_backend.user.domain.ports.output.UserRepositoryPort;
-import com.joucode.campus_x_backend.user.domain.models.enums.ActivityStatusName;
+import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

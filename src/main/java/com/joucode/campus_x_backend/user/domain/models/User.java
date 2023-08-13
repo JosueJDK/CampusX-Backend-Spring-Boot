@@ -1,7 +1,7 @@
 package com.joucode.campus_x_backend.user.domain.models;
 
 import com.joucode.campus_x_backend.profile.domain.models.UserProfile;
-import com.joucode.campus_x_backend.user.domain.models.enums.ActivityStatusName;
+import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.Set;

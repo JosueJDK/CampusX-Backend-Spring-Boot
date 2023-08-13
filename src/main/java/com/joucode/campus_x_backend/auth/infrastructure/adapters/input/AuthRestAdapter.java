@@ -2,15 +2,14 @@ package com.joucode.campus_x_backend.auth.infrastructure.adapters.input;
 
 import com.joucode.campus_x_backend.auth.application.services.AuthService;
 import com.joucode.campus_x_backend.auth.domain.models.Auth;
-import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthLoginRequest;
-import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthRefreshTokenRequest;
-import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthRegisterRequest;
+import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.*;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.output.persistence.mappers.AuthMapper;
 import com.joucode.campus_x_backend.common.mappers.ResponseMapper;
 import com.joucode.campus_x_backend.common.response.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,7 @@ public class AuthRestAdapter {
     public ResponseEntity<Response<Auth>> authRegister(@RequestBody @Valid AuthRegisterRequest authRegisterRequest){
         Auth authResponse = authService.authRegister(authMapper.toUser(authRegisterRequest));
         log.info("---- Create user: {}", authResponse.getUser().getUsername());
-        return new ResponseEntity<>(responseMapper.toResponse(authResponse, CREATED), CREATED);
+        return new ResponseEntity(responseMapper.toResponse(authResponse, CREATED), CREATED);
     }
 
     @GetMapping("/logout/{user_id}")
@@ -60,14 +59,21 @@ public class AuthRestAdapter {
         return new ResponseEntity<>(responseMapper.toResponse(authResponse, CREATED), CREATED);
     }
 
-    @GetMapping("/check-available-email/{email}")
-    public ResponseEntity<Response> checkAvailableEmail(@PathVariable(value = "email") String email) {
-        return checkAvailability("email", email);
+    @PostMapping("/check-available-token")
+    public ResponseEntity<Response> checkAvailableEmail(@RequestBody AuthCheckTokenRequest tokenRequest) {
+        Boolean state = authService.checkAvailableToken(tokenRequest.getToken());
+        Response response = new Response(OK.value(), OK.name(), Map.of("isValid", state));
+        return new ResponseEntity<>(response, OK);
     }
 
-    @GetMapping("/check-available-user-name/{username}")
-    public ResponseEntity<Response> checkAvailableUserName(@PathVariable(value = "username") String username) {
-        return checkAvailability("user_name", username);
+    @PostMapping("/check-available-email")
+    public ResponseEntity<Response> checkAvailableEmail(@RequestBody AuthCheckEmailRequest emailRequest) {
+        return checkAvailability("email", emailRequest.getEmail());
+    }
+
+    @PostMapping("/check-available-user-name")
+    public ResponseEntity<Response> checkAvailableUserName(@RequestBody AuthCheckUserNameRequest userNameRequest) {
+        return checkAvailability("user_name", userNameRequest.getUserName());
     }
 
     private ResponseEntity<Response> checkAvailability(String fieldName, String value) {

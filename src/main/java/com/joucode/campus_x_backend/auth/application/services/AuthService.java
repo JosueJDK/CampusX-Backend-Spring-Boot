@@ -7,20 +7,25 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class AuthService
-        implements  AuthLoginUseCase,
-                    AuthRegisterUseCase,
-                    AuthCheckAvailableEmailUseCase,
-                    AuthCheckAvailableUserNameUseCase,
-                    AuthRefreshTokenUseCase,
-                    AuthLogoutUserIdUseCase {
+        implements
+
+        AuthLoginUseCase,
+        AuthRegisterUseCase,
+        AuthCheckEmailUseCase,
+        AuthCheckUserNameUseCase,
+        AuthCheckTokenUseCase,
+        AuthRefreshTokenUseCase,
+        AuthLogoutUserIdUseCase {
 
     private final AuthLoginUseCase authLoginUseCase;
 
     private final AuthRegisterUseCase authRegisterUseCase;
 
-    private final AuthCheckAvailableEmailUseCase authCheckAvailableEmailUseCase;
+    private final AuthCheckEmailUseCase authCheckEmailUseCase;
 
-    private final AuthCheckAvailableUserNameUseCase authCheckAvailableUserNameUseCase;
+    private final AuthCheckUserNameUseCase authCheckUserNameUseCase;
+
+    private final AuthCheckTokenUseCase authCheckTokenUseCase;
 
     private final AuthRefreshTokenUseCase authRefreshTokenUseCase;
 
@@ -38,12 +43,17 @@ public class AuthService
 
     @Override
     public Boolean checkAvailableEmail(String email) {
-        return authCheckAvailableEmailUseCase.checkAvailableEmail(email);
+        return authCheckEmailUseCase.checkAvailableEmail(email);
     }
 
     @Override
     public Boolean checkAvailableUserName(String userName) {
-        return authCheckAvailableUserNameUseCase.checkAvailableUserName(userName);
+        return authCheckUserNameUseCase.checkAvailableUserName(userName);
+    }
+
+    @Override
+    public Boolean checkAvailableToken(String token) {
+        return authCheckTokenUseCase.checkAvailableToken(token);
     }
 
     @Override
@@ -55,4 +65,6 @@ public class AuthService
     public void authLogoutUserId(Long user_id){
         authLogoutUserIdUseCase.authLogoutUserId(user_id);
     }
+
+
 }
