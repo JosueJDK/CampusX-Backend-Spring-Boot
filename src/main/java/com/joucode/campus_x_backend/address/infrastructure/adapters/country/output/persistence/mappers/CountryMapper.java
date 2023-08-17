@@ -21,8 +21,8 @@ public class CountryMapper {
         return mapper.map(country, Country.class);
     }
 
-    public List<Country> toList(List<CountryEntity> specialty) {
-        return specialty.stream()
+    public List<Country> toList(List<CountryEntity> country) {
+        return country.stream()
                 .map(this::toModel)
                 .collect(Collectors.toList());
     }
