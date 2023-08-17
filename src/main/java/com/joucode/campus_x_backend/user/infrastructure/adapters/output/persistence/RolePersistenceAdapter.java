@@ -3,6 +3,7 @@ package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persist
 import com.joucode.campus_x_backend.user.domain.models.Role;
 import com.joucode.campus_x_backend.user.domain.ports.output.RoleRepositoryPort;
 import com.joucode.campus_x_backend.user.domain.enums.RoleName;
+import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.RoleEntity;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.mappers.UserMapper;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.respository.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class RolePersistenceAdapter implements RoleRepositoryPort {
 
     @Override
     public Optional<Role> findByName(RoleName roleName) {
-        return Optional.ofNullable(userMapper.toRole(roleRepository.findByName(roleName).get()));
+        Optional<RoleEntity> role = roleRepository.findByName(roleName);
+        return role.map(userMapper::toRole);
     }
 
 }

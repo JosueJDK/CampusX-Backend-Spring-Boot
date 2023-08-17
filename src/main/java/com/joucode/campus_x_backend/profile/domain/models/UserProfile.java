@@ -1,6 +1,6 @@
 package com.joucode.campus_x_backend.profile.domain.models;
 
-import com.joucode.campus_x_backend.address.infrastructure.adapters.address.output.persistence.entity.AddressEntity;
+import com.joucode.campus_x_backend.address.infrastructure.adapters.output.persistence.entity.AddressEntity;
 import com.joucode.campus_x_backend.profile.domain.enums.ZodicalSign;
 import com.joucode.campus_x_backend.university.infrastructure.adapters.output.persistence.entity.InfoUniversityEntity;
 import com.joucode.campus_x_backend.user.domain.enums.GenderName;
