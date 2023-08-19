@@ -1,8 +1,8 @@
 package com.joucode.campus_x_backend.university.application.services;
 
 import com.joucode.campus_x_backend.university.domain.models.University;
-import com.joucode.campus_x_backend.university.domain.ports.input.university.CreateUniversityUseCase;
-import com.joucode.campus_x_backend.university.domain.ports.input.university.RetrieveUniversityUseCase;
+import com.joucode.campus_x_backend.university.domain.ports.input.CreateUniversityUseCase;
+import com.joucode.campus_x_backend.university.domain.ports.input.RetrieveUniversityUseCase;
 import lombok.AllArgsConstructor;
 import java.util.List;
 

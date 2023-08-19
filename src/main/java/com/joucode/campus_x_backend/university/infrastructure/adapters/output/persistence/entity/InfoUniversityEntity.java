@@ -1,8 +1,7 @@
 package com.joucode.campus_x_backend.university.infrastructure.adapters.output.persistence.entity;
 
-import com.joucode.campus_x_backend.profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
-import com.joucode.campus_x_backend.university.infrastructure.adapters.output.persistence.entity.SpecialtyEntity;
-import com.joucode.campus_x_backend.university.infrastructure.adapters.output.persistence.entity.UniversityEntity;
+import com.joucode.campus_x_backend.user_profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
+import com.joucode.campus_x_backend.specialties_university.infrastructure.adapters.output.persistence.entity.SpecialtiesEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +28,9 @@ public class InfoUniversityEntity {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "specialty_id", nullable = false)
-    private SpecialtyEntity specialtyEntity;
+    private SpecialtiesEntity specialtiesEntity;
 
-    @OneToOne(mappedBy = "university", fetch = FetchType.LAZY,
+    @OneToOne(mappedBy = "infoUniversity", fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
     private UserProfileEntity userProfile;
 

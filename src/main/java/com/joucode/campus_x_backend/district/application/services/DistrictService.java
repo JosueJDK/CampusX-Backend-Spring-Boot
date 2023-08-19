@@ -3,11 +3,13 @@ package com.joucode.campus_x_backend.district.application.services;
 import com.joucode.campus_x_backend.district.domain.models.District;
 import com.joucode.campus_x_backend.district.domain.ports.input.CreateDistrictUseCase;
 import com.joucode.campus_x_backend.district.domain.ports.input.RetrieveDistrictUseCase;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Transactional
 public class DistrictService implements
         CreateDistrictUseCase,
         RetrieveDistrictUseCase {

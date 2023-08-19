@@ -30,6 +30,7 @@ public class DistrictPersistenceAdapter implements DistrictRepositoryPort {
 
     @Override
     public List<District> getAll() {
+        System.out.println(repository.findAll().get(0).getCity());
         return mapper.toList(repository.findAll());
     }
 }

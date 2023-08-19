@@ -29,11 +29,42 @@ Descripción concisa de tu API y su funcionalidad.
        ./mvnw spring-boot:run
 
 ## Endpoints
-   **Autenticación y Registro**
-    
-        GET /api/v1/auth/check-available-email/{email} ### Verificar disponibilidad de correo electrónico.
-        GET /api/v1/auth/check-available-user-name/{username} ### Verificar disponibilidad de nombre de usuario.
-        POST /api/v1/auth/register: ### Registrarse en la aplicación y recibir un token JWT.
-        POST /api/v1/auth/login: ### Iniciar sesión y recibir un token JWT.
+   **Auth**
+
+      ### Registrarse en la aplicación
+      POST /api/v1/auth/register
+
+      ### Iniciar sesión
+        POST /api/v1/auth/login
+
+      ### Cerrar Session
+        GET /api/v1/auth/logout/{user_id}
+
+      ### Refrescar AccessToken
+         POST /api/v1/auth/refresh-token
+
+      ### Comprobar validez del token
+         POST /api/v1/auth/check-available-token
+
+      ### Verificar disponibilidad de correo electrónico.
+        GET /api/v1/auth/check-available-email/{email}
+
+      ### Verificar disponibilidad de nombre de usuario.
+        GET /api/v1/auth/check-available-user-name/{username}
+
+   **User**
+
+      ### Obtener usuario por id
+         GET /api/v1/user/{user_id}
+
+   **Profile**
+
+      ### Obtener perfil por id
+         GET /api/v1/profile/{id_user_profile}
+   
+   **Address**
+
+      ### Crear una Address para un user_profile
+         POST /api/v1/address/{id_user_profile}/create
 
 © 2023 | JouCode

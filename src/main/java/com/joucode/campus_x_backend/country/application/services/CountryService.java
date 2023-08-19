@@ -3,11 +3,13 @@ package com.joucode.campus_x_backend.country.application.services;
 import com.joucode.campus_x_backend.country.domain.models.Country;
 import com.joucode.campus_x_backend.country.domain.ports.input.CreateCountryUseCase;
 import com.joucode.campus_x_backend.country.domain.ports.input.RetrieveCountryUseCase;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Transactional
 public class CountryService implements
         CreateCountryUseCase,
         RetrieveCountryUseCase {

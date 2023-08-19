@@ -1,7 +1,9 @@
 package com.joucode.campus_x_backend.country.infrastructure.output.persistence.entity;
 
+import com.joucode.campus_x_backend.address.infrastructure.adapters.output.persistence.entity.AddressEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "country_table")
 public class CountryEntity {
 
@@ -22,5 +25,10 @@ public class CountryEntity {
 
     @Column(name = "country_code", nullable = false, length = 4)
     private String code;
+
+    @OneToOne(mappedBy = "country", fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
+    private AddressEntity address;
+
 
 }

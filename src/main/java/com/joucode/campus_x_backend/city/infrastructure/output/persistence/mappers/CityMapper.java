@@ -2,6 +2,7 @@ package com.joucode.campus_x_backend.city.infrastructure.output.persistence.mapp
 
 import com.joucode.campus_x_backend.city.domain.models.City;
 import com.joucode.campus_x_backend.city.infrastructure.output.persistence.entity.CityEntity;
+import com.joucode.campus_x_backend.country.domain.models.Country;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;

@@ -1,7 +1,9 @@
 package com.joucode.campus_x_backend.district.infrastructure.output.persistence.mappers;
 
+import com.joucode.campus_x_backend.city.domain.models.City;
 import com.joucode.campus_x_backend.district.domain.models.District;
 import com.joucode.campus_x_backend.district.infrastructure.output.persistence.entity.DistrictEntity;
+import com.joucode.campus_x_backend.province.domain.models.Province;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

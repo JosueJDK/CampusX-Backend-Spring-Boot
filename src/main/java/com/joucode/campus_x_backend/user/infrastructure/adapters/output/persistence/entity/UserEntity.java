@@ -1,6 +1,6 @@
 package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity;
 
-import com.joucode.campus_x_backend.profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
+import com.joucode.campus_x_backend.user_profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
 import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import jakarta.persistence.*;
 import lombok.*;

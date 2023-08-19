@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 
 public class ResponseMapper {
 
-    public <T> Response toResponse(T userResponse, HttpStatus httpStatus){
-        return new Response(httpStatus.value(), httpStatus.name(), userResponse);
+    public <T> Response toResponse(T response, HttpStatus httpStatus){
+        return new Response(httpStatus.value(), httpStatus.name(), response);
     }
 
 }

@@ -2,9 +2,9 @@ package com.joucode.campus_x_backend.auth.infrastructure.adapters.output.persist
 
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthLoginRequest;
 import com.joucode.campus_x_backend.auth.infrastructure.adapters.input.rest.data.request.AuthRegisterRequest;
-import com.joucode.campus_x_backend.profile.domain.enums.ZodicalSign;
+import com.joucode.campus_x_backend.user_profile.domain.enums.ZodicalSign;
 import com.joucode.campus_x_backend.user.domain.models.User;
-import com.joucode.campus_x_backend.profile.domain.models.UserProfile;
+import com.joucode.campus_x_backend.user_profile.domain.models.UserProfile;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.joucode.campus_x_backend.user.domain.enums.ActivityStatusName;
 import org.modelmapper.ModelMapper;

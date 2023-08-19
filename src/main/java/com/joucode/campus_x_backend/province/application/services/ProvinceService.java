@@ -3,11 +3,13 @@ package com.joucode.campus_x_backend.province.application.services;
 import com.joucode.campus_x_backend.province.domain.models.Province;
 import com.joucode.campus_x_backend.province.domain.ports.input.CreateProvinceUseCase;
 import com.joucode.campus_x_backend.province.domain.ports.input.RetrieveProvinceUseCase;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Transactional
 public class ProvinceService implements
         CreateProvinceUseCase,
         RetrieveProvinceUseCase {

@@ -2,10 +2,10 @@ package com.joucode.campus_x_backend.user.infrastructure.adapters.output.persist
 
 import com.joucode.campus_x_backend.user.domain.models.Role;
 import com.joucode.campus_x_backend.user.domain.models.User;
-import com.joucode.campus_x_backend.profile.domain.models.UserProfile;
+import com.joucode.campus_x_backend.user_profile.domain.models.UserProfile;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.RoleEntity;
 import com.joucode.campus_x_backend.user.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.joucode.campus_x_backend.profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
+import com.joucode.campus_x_backend.user_profile.infrastructure.adapters.output.persistence.entity.UserProfileEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

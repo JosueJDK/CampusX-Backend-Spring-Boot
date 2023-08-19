@@ -3,11 +3,13 @@ package com.joucode.campus_x_backend.city.application.services;
 import com.joucode.campus_x_backend.city.domain.models.City;
 import com.joucode.campus_x_backend.city.domain.ports.input.CreateCityUseCase;
 import com.joucode.campus_x_backend.city.domain.ports.input.RetrieveCityUseCase;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Transactional
 public class CityService implements
         CreateCityUseCase,
         RetrieveCityUseCase {

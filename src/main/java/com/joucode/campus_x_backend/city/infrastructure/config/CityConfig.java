@@ -7,6 +7,7 @@ import com.joucode.campus_x_backend.city.domain.ports.output.CityRepositoryPort;
 import com.joucode.campus_x_backend.city.infrastructure.output.persistence.CityPersistenceAdapter;
 import com.joucode.campus_x_backend.city.infrastructure.output.persistence.mappers.CityMapper;
 import com.joucode.campus_x_backend.city.infrastructure.output.persistence.repository.CityRepository;
+import com.joucode.campus_x_backend.country.application.services.CountryService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,9 +28,9 @@ public class CityConfig {
     }
 
     @Bean
-    public CityService cityService(CityRepositoryPort repositoryPort){
+    public CityService cityService(CityRepositoryPort repositoryPort, CountryService countryService){
         return new CityService(
-                new CreateCityUseCaseImpl(repositoryPort),
+                new CreateCityUseCaseImpl(repositoryPort, countryService),
                 new RetrieveCityUsecaseImpl(repositoryPort)
         );
     }
